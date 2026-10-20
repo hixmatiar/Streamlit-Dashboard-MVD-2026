@@ -10,7 +10,7 @@ st.set_page_config(
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv('clean_uber_dataset.csv')
+    df = pd.read_csv('clean_uber_dataset.csv', parse_dates=['Date'])
     return df
 
 df = load_data()
