@@ -55,10 +55,10 @@ with filter4:
 st.divider()
 
 df_filter = df[
-    (df['Visit_Date'].dt.date >= min_date) &
-    (df['Visit_Date'].dt.date <= max_date) &
+    (df['Date'].dt.date >= min_date) &
+    (df['Date'].dt.date <= max_date) &
     (df['Booking Status'].isin(booking_status)) &
-    (df['City'].isin(vehicle)) &
+    (df['Vehicle Type'].isin(vehicle)) &
     (df['Payment Method'].isin(paymemt))
 ].copy()
 
@@ -67,8 +67,8 @@ if df_filter.empty:
     st.stop()
 
 df_filter = df[
-    (df['Visit_Date'].dt.date >= min_date) &
-    (df['Visit_Date'].dt.date <= max_date) &
-    (df['City'].isin(vehicle)) &
+    (df['Date'].dt.date >= min_date) &
+    (df['Date'].dt.date <= max_date) &
+    (df['Vehicle Type'].isin(vehicle)) &
     (df['Payment Method'].isin(paymemt))
 ].copy()
