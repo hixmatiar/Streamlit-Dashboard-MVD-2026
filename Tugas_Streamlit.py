@@ -8,5 +8,10 @@ st.set_page_config(
     layout='wide'
 )
 
-df = pd.read_csv('clean_uber_dataset.csv')
+@st.cache_data
+def load_data():
+    df = pd.read_csv('clean_uber_dataset.csv')
+    return df
+
+df = load_data()
 st.write(df)
