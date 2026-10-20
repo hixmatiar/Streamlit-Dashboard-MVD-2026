@@ -1,0 +1,6 @@
+[theme]
+primaryColor = "#3B82F6"           # Biru Akses
+backgroundColor = "#0F172A"        # Latar Belakang Utama (Dark Slate)
+secondaryBackgroundColor = "#1E293B" # Latar Belakang Sidebar & Input
+textColor = "#F8FAFC"              # Warna Teks
+font = "sans serif"
