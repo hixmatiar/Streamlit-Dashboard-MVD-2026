@@ -129,19 +129,16 @@ with left1:
 
 with right1:
     data = df_filter.copy()
-    data = data[data['Payment Method'] != 'Unknown']
-    payment_pie = (
-        data.groupby('Payment Method', as_index=False)['Booking ID']
-        .count().sort_values('Booking ID', ascending=True)
+    data['Time'] = pd.to_datetime(data['Time'], format='%H:%M:%S')
+    viz = px.histogram(
+        data, 
+        x='Time', 
+        title='Histogram Distribusi Waktu',
+        labels={'Time_Format': 'Jam (Format 24 Jam)', 'count': 'Frekuensi Muncul'}
     )
-    viz = px.pie(
-        payment_pie,
-        names='Payment Method',
-        values='Booking ID',
-        title='Jumlah Transaksi Berdasarkan Metode Pembayaran',
-        hole=0.5
-    )
+    viz.update_layout(xaxis=dict(tickformat='%H:%M', dtick=7200000), bargap=0.05)
     st.plotly_chart(viz, use_container_width=True)
+
 
 left2, right2 = st.columns(2)
 with left2:
@@ -161,15 +158,29 @@ with left2:
     st.plotly_chart(viz, use_container_width=True)
 
 with right2:
-    status_pie = (
-        df_filter.groupby('Booking Status', as_index=False)['Booking ID']
+    # status_pie = (
+    #     df_filter.groupby('Booking Status', as_index=False)['Booking ID']
+    #     .count().sort_values('Booking ID', ascending=True)
+    # )
+    # viz = px.pie(
+    #     status_pie,
+    #     names='Booking Status',
+    #     values='Booking ID',
+    #     title='Jumlah Transaksi Berdasarkan Booking Status',
+    #     hole=0.5
+    # )
+    # st.plotly_chart(viz, use_container_width=True)
+    data = df_filter.copy()
+    data = data[data['Payment Method'] != 'Unknown']
+    payment_pie = (
+        data.groupby('Payment Method', as_index=False)['Booking ID']
         .count().sort_values('Booking ID', ascending=True)
     )
     viz = px.pie(
-        status_pie,
-        names='Booking Status',
+        payment_pie,
+        names='Payment Method',
         values='Booking ID',
-        title='Jumlah Transaksi Berdasarkan Booking Status',
+        title='Jumlah Transaksi Berdasarkan Metode Pembayaran',
         hole=0.5
     )
     st.plotly_chart(viz, use_container_width=True)
