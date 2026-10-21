@@ -97,9 +97,6 @@ kpi4.metric(label='Average Waktu Tunggu', value=f'**{avg_vtat:,} Min**')
 kpi5.metric(label='Average Durasi Perjalanan', value=f'**{avg_ctat} Min**')
 kpi6.metric(label='Average Driver Rating', value=f'**{avg_rating}**/5')
 
-# tab1, tab2 = st.tabs(2)
-# with
-
 monthly = (
     df_filter.assign(Bulan=df_filter['Date'].dt.to_period('M').astype(str))
     .groupby('Bulan', as_index=False)['Booking ID'].count()
@@ -118,16 +115,16 @@ left1, right1 = st.columns(2)
 with left1:
     vehicle_type = (
         df_filter.groupby('Vehicle Type', as_index=False)['Booking ID']
-        .count().sort_values('Booking ID', ascending=False)
-    )
+        .count().sort_values('Booking ID', ascending=False).head()
+        )
     viz = px.bar(
-        vehicle_type,
-        x='Vehicle Type',
-        y='Booking ID',
-        title='Top 5 Jenis Kendaraan yang Paling Sering di Booking',
-        text_auto='.2s'
-    )
-    viz.update_layout(xaxis_title='Jenis Kendaraan', yaxis_title='Rata-rata Waktu Tunggu Terlama')
+            vehicle_type,
+            x='Vehicle Type',
+            y='Booking ID',
+            title='Top 5 Jenis Kendaraan yang Paling Sering di Booking',
+            text_auto='.2s',
+        )
+    viz.update_layout(xaxis_title='Jenis Kendaraan', yaxis_title='Jumlah Booking')
     st.plotly_chart(viz, use_container_width=True)
 
 with right1:
